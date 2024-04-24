@@ -179,23 +179,7 @@ return {
         jsonls = {
           on_new_config = function(new_config)
             new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(
-              new_config.settings.json.schemas,
-              require('schemastore').json.schemas {
-                select = {
-                  'Renovate',
-                  'GithubCom',
-                },
-                extra = {
-                  {
-                    name = 'GithubCom',
-                    description = 'Github.com Repo Integration Schema',
-                    fileMatch = { '.whitesource', 'repo-config.json' },
-                    url = '/Users/kyallanum/Documents/repos/repo_schema/github_com_integration.json',
-                  },
-                },
-              }
-            )
+            vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas {})
           end,
           settings = {
             json = {

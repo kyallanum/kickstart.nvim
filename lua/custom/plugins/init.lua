@@ -7,6 +7,16 @@ return {
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require('autoclose').setup()
+    end,
+  },
+  {
+    'jiangmiao/auto-pairs', -- Automatic quote and bracket pairing
+    enabled = false,
+  },
+  {
     'numToStr/Comment.nvim',
     opts = {},
   },
