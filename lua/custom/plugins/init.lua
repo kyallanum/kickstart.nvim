@@ -13,10 +13,6 @@ return {
     end,
   },
   {
-    'jiangmiao/auto-pairs', -- Automatic quote and bracket pairing
-    enabled = false,
-  },
-  {
     'numToStr/Comment.nvim',
     opts = {},
   },
@@ -130,10 +126,4 @@ return {
   {
     'b0o/schemastore.nvim',
   },
-  -- require 'custom.plugins.lsp',
-  -- require 'custom.plugins.theme',
-  -- require 'custom.plugins.github',
-  -- require 'custom.plugins.telescope',
-  -- require 'custom.plugins.treesitter',
-  -- require 'custom.plugins.autocompletion',
 }
