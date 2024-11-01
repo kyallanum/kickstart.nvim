@@ -1,10 +1,17 @@
 return {
   {
-    'AlexvZyl/nordic.nvim',
-    lazy = false,
+    'eldritch-theme/eldritch.nvim',
     priority = 1000,
-    config = function()
-      require('nordic').load()
+    init = function()
+      require('eldritch').setup {
+        styles = {
+          comments = { italic = true },
+          functions = {},
+        },
+        dim_inactive = true,
+      }
+      vim.cmd.colorscheme 'eldritch'
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
   {

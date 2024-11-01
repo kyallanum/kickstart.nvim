@@ -1,7 +1,4 @@
-tags
-test.sh
 .luarc.json
-nvim
+python/
 
 spell/
-lazy-lock.json
