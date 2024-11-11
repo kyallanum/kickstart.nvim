@@ -1,7 +1,39 @@
+local function get_python_path()
+  local function find_project_root()
+    local markers = {
+      '.git',
+      'pyproject.toml',
+      'setup.py',
+      'requirements.txt',
+    }
+
+    local current_dir = vim.fn.expand '%:p:h'
+    while current_dir ~= '/' do
+      for _, marker in ipairs(markers) do
+        if vim.fn.filereadable(current_dir .. '/' .. marker) == 1 or vim.fn.isdirectory(current_dir .. '/' .. marker) == 1 then
+          return current_dir
+        end
+      end
+      current_dir = vim.fn.fnamemodify(current_dir, ':h')
+    end
+    return nil
+  end
+
+  local project_root = find_project_root()
+  if project_root then
+    local venv = project_root .. '/venv/bin/python'
+    if vim.fn.exepath(venv) == 1 then
+      return venv
+    end
+  end
+
+  return vim.fn.exepath 'python3' or vim.fn.exepath 'python'
+end
+
 return {
   {
     'mfussenegger/nvim-dap',
-    events = 'VeryLazy',
+    event = 'VeryLazy',
     dependencies = {
       {
         'rcarriga/nvim-dap-ui',
@@ -27,6 +59,7 @@ return {
       {
         'jay-babu/mason-nvim-dap.nvim',
       },
+      'linux-cultist/venv-selector.nvim',
     },
 
     config = function()
@@ -41,10 +74,9 @@ return {
           'debugpy',
         },
         automatic_installation = true,
-        config = function()
-          require('dap-python').setup(require('venv-selector').venv() .. '/debugpy')
-        end,
       }
+
+      require('venv-selector').setup(get_python_path())
 
       vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
 
@@ -57,6 +89,10 @@ return {
       dap.listeners.after.event_initialized['dapui_config'] = dapui.open
       dap.listeners.before.event_terminated['dapui_config'] = dapui.close
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+      dap.listeners.before['terminate']['custom'] = function()
+        vim.fn.system 'pkill -f debugpy'
+      end
 
       -- Set up Dap UI config
       dapui.setup {
@@ -95,7 +131,12 @@ return {
         },
         { '<leader>gb', dap.run_to_cursor, desc = 'Debug: Run to cursor' },
         { '<F9>', dapui.toggle, desc = 'Debug: Toggle debug UI.' },
-        { '<leader>[', dapui.eval(nil, { enter = true }) },
+        {
+          '<leader>[',
+          function()
+            dapui.eval(nil, { enter = true })
+          end,
+        },
         unpack(keys),
       }
     end,

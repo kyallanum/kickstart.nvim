@@ -38,6 +38,20 @@ function autocommands.set()
       end
     end,
   })
+
+  vim.api.nvim_create_autocmd('VimEnter', {
+    desc = 'Auto select virtualenv on open',
+    pattern = '*',
+    callback = function()
+      local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+      if venv ~= '' then
+        require('venv-selector').setup {
+          pyenv_path = '/home/klanum/.pyenv/versions',
+        }
+      end
+    end,
+    once = true,
+  })
 end
 
 return autocommands

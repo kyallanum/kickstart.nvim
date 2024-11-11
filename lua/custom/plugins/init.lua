@@ -98,4 +98,10 @@ return {
       vim.g.mkdp_theme = 'dark'
     end,
   },
+  {
+    'kyallanum/ndi.nvim',
+    dependencies = {
+      'junegunn/fzf',
+    },
+  },
 }
