@@ -98,8 +98,16 @@ return {
       vim.g.mkdp_theme = 'dark'
     end,
   },
+  -- {
+  --   'kyallanum/ndi.nvim',
+  --   dependencies = {
+  --     'junegunn/fzf',
+  --   },
+  -- },
   {
-    'kyallanum/ndi.nvim',
+    dir = '~/.config/nvim/lua/dev/ndi.nvim',
+    name = 'ndi',
+    dev = { true },
     dependencies = {
       'junegunn/fzf',
     },
