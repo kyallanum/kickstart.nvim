@@ -22,6 +22,26 @@ return {
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      {
+        'ANGkeith/telescope-terraform-doc.nvim',
+        ft = { 'terraform', 'hcl' },
+        config = function()
+          local LazyVim = require 'lazyvim.util'
+          LazyVim.on_load('telescope.nvim', function()
+            require('telescope').load_extension 'terraform_doc'
+          end)
+        end,
+      },
+      {
+        'cappyzawa/telescope-terraform.nvim',
+        ft = { 'terraform', 'hcl' },
+        config = function()
+          local LazyVim = require 'lazyvim.util'
+          LazyVim.on_load('telescope.nvim', function()
+            require('telescope').load_extension 'terraform'
+          end)
+        end,
+      },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that

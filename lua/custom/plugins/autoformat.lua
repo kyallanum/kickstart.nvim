@@ -35,6 +35,10 @@ return {
         go = { 'goimports', 'gofumpt' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        hcl = { 'packer_fmt' },
+        terraform = { 'terraform_fmt' },
+        tf = { 'terraform_fmt' },
+        ['terraform-vars'] = { 'terraform_fmt' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },

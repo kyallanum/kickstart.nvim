@@ -39,18 +39,31 @@ function autocommands.set()
     end,
   })
 
-  vim.api.nvim_create_autocmd('VimEnter', {
-    desc = 'Auto select virtualenv on open',
-    pattern = '*',
-    callback = function()
-      local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
-      if venv ~= '' then
-        require('venv-selector').setup {
-          pyenv_path = '/home/klanum/.pyenv/versions',
-        }
+  vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufNewFile' }, {
+    pattern = '*.py',
+    command = 'set filetype=python shiftwidth=4 tabstop=4 expandtab',
+  })
+
+  -- Make sure to load launch.json configurations at time of loading file.
+  vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufNewFile' }, {
+    pattern = 'python',
+    callback = function(ev)
+      if not vim.b[ev.buf].dap_configs_loaded then
+        load_launch_json(ev.buf)
       end
     end,
-    once = true,
+  })
+
+  vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+    pattern = { '*.tf', '*.tfvars' },
+    callback = function()
+      vim.lsp.buf.format()
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufNewFile' }, {
+    pattern = { '*.tf', '*.tfvars' },
+    command = 'set filetype=terraform shiftwidth=2 tabstop=2 expandtab',
   })
 end
 

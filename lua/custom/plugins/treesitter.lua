@@ -25,6 +25,8 @@ return {
         -- Python Tooling
         'ninja',
         'rst',
+        'terraform',
+        'hcl',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
