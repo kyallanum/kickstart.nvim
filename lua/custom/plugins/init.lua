@@ -56,34 +56,6 @@ return {
     },
   },
 
-  -- Python specific plugins
-  {
-    'linux-cultist/venv-selector.nvim',
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = {
-        'nvim-lua/plenary.nvim',
-      } },
-      'mfussenegger/nvim-dap-python',
-      'mfussenegger/nvim-dap', --optional
-    },
-    lazy = false,
-    branch = 'regexp',
-    -- Call config for python files and load the cached venv automatically
-    keys = { { '<leader>cv', '<cmd>:VenvSelect<cr>', desc = 'Select VirtualEnv', ft = 'python' } },
-    config = function()
-      require('venv-selector').setup {
-        settings = {
-          options = {
-            notify_user_on_venv_activation = true,
-            set_environment_variables = true,
-            debug = true,
-          },
-        },
-      }
-    end,
-  },
-
   -- Markdown Preview
   {
     'iamcco/markdown-preview.nvim',
@@ -98,16 +70,8 @@ return {
       vim.g.mkdp_theme = 'dark'
     end,
   },
-  -- {
-  --   'kyallanum/ndi.nvim',
-  --   dependencies = {
-  --     'junegunn/fzf',
-  --   },
-  -- },
   {
-    dir = '~/.config/nvim/lua/dev/ndi.nvim',
-    name = 'ndi',
-    dev = { true },
+    'kyallanum/ndi.nvim',
     dependencies = {
       'junegunn/fzf',
     },

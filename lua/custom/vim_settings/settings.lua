@@ -84,7 +84,7 @@ function settings.set(leader, breakindent)
   -- Python LSP
   vim.g.lazyvim_python_lsp = 'pyright'
   vim.g.lazyvim_python_ruff = 'ruff'
-  vim.g.python3_host_prog = vim.fn.stdpath 'config' .. '/python/venv/bin/python3'
+  -- vim.g.python3_host_prog = vim.fn.stdpath 'config' .. '/python/venv/bin/python3'
 end
 
 return settings

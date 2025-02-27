@@ -30,10 +30,11 @@ return {
             'gomodifytags',
             'impl',
             'delve',
-            'debugpy',
+            'tflint',
           },
         },
       },
+      { 'ANGkeith/telescope-terraform-doc.nvim' },
       -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -281,7 +282,6 @@ return {
             end,
           },
         },
-        debugpy = { opts = {} },
 
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -324,6 +324,28 @@ return {
               },
               validate = { enable = true },
               format = { enable = true },
+            },
+          },
+        },
+
+        terraformls = {
+          filetypes = { 'terraform', 'terraform-vars', 'tf' },
+          settings = {
+            terraform = {
+              format = {
+                enable = true,
+              },
+            },
+          },
+          keys = {
+            {
+              '<leader>td',
+              function()
+                require('telescope').extensions['terraform-docs'].terraform()
+              end,
+              desc = '[T]erraform [D]ocs',
+              mode = 'n',
+              buffer = true,
             },
           },
         },
