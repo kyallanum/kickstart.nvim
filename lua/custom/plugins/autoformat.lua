@@ -19,12 +19,16 @@ return {
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, html = true }
+        local disable_filetypes = { c = true, cpp = true }
+        local prefer_lsp = { html = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
         else
           lsp_format_opt = 'fallback'
+        end
+        if prefer_lsp[vim.bo[bufnr].filetype] then
+          lsp_format_opt = 'prefer'
         end
         return {
           timeout_ms = 500,
@@ -35,6 +39,7 @@ return {
         go = { 'goimports', 'gofumpt' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        templ = { 'templ' },
         hcl = { 'packer_fmt' },
         terraform = { 'terraform_fmt' },
         tf = { 'terraform_fmt' },

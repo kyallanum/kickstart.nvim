@@ -76,4 +76,12 @@ return {
       'junegunn/fzf',
     },
   },
+  {
+    dir = '~/.config/nvim/lua/dev/smm.nvim',
+    name = 'smm',
+    dev = { true },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
 }

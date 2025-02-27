@@ -76,6 +76,25 @@ return {
       {
         'williamboman/mason.nvim',
         dependencies = { 'jay-babu/mason-nvim-dap.nvim' },
+        opts = { ensure_installed = { 'delve' } },
+      },
+      {
+        'leoluz/nvim-dap-go',
+        opts = {},
+      },
+      {
+        'nvim-neotest/neotest',
+        optional = true,
+        dependencies = {
+          'fredrikaverpil/neotest-golang',
+        },
+        opts = {
+          adapters = {
+            ['neotest-golang'] = {
+              dap_go_enabled = true,
+            },
+          },
+        },
       },
       {
         'theHamsta/nvim-dap-virtual-text',
